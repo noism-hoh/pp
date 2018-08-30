@@ -5,7 +5,7 @@ configuration:
   - Release
   
 environment:
-  FPC_PATH: '%APPVEYOR_BUILD_FOLDER%\fpc'
+  FPC_PATH: '%APPVEYOR_BUILD_FOLDER%\freepascal\fpc'
   COMPILER_PATH: '%FPC_PATH%\bin\i386-win32\'
   
 install:
