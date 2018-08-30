@@ -1,4 +1,4 @@
-# pp
+# pp [![Build status](https://ci.appveyor.com/api/projects/status/s7jwvj5a45xsdtvy/branch/master?svg=true)](https://ci.appveyor.com/project/bentokun/pp/branch/master)
 
 Using Win32 API to do a copy/paste test case to output from a Themis contest on a 32-bit Windows.
 
