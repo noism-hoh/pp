@@ -1,18 +1,18 @@
 {
     MIT License
-    
+
     Copyright (c) 2018 noism
-    
+
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
     in the Software without restriction, including without limitation the rights
     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
     copies of the Software, and to permit persons to whom the Software is
     furnished to do so, subject to the following conditions:
-    
+
     The above copyright notice and this permission notice shall be included in all
     copies or substantial portions of the Software.
-    
+
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,7 +22,42 @@
     SOFTWARE.
 }
 
-uses windows, jwatlhelp32;
+uses windows;
+
+const
+  kernel32 = 'kernel32.dll';
+  AWSuffix= 'A';
+
+type
+  PPROCESSENTRY32 = ^PROCESSENTRY32;
+  {$EXTERNALSYM PPROCESSENTRY32}
+  tagPROCESSENTRY32 = record
+    dwSize: DWORD;
+    cntUsage: DWORD;
+    th32ProcessID: DWORD;          // this process
+    th32DefaultHeapID: ULONG_PTR;
+    th32ModuleID: DWORD;           // associated exe
+    cntThreads: DWORD;
+    th32ParentProcessID: DWORD;    // this process's parent process
+    pcPriClassBase: LONG;          // Base priority of process's threads
+    dwFlags: DWORD;
+    szExeFile: array [0..MAX_PATH - 1] of Char;    // Path
+  end;
+  {$EXTERNALSYM tagPROCESSENTRY32}
+  PROCESSENTRY32 = tagPROCESSENTRY32;
+  {$EXTERNALSYM PROCESSENTRY32}
+  LPPROCESSENTRY32 = ^PROCESSENTRY32;
+  {$EXTERNALSYM LPPROCESSENTRY32}
+  TProcessEntry32 = PROCESSENTRY32;
+
+const
+   TH32CS_SNAPPROCESS  = $00000002;
+
+
+function CreateToolhelp32Snapshot(dwFlags, th32ProcessID: DWORD): HANDLE; stdcall; external kernel32 name 'CreateToolhelp32Snapshot';
+function Process32Next(hSnapshot: HANDLE; var lppe: PROCESSENTRY32): BOOL; stdcall; external kernel32 name 'Process32Next';
+function Process32First(hSnapshot: HANDLE; var lppe: PROCESSENTRY32): BOOL; stdcall; external kernel32 name 'Process32First';
+
 
 const currentTestFolderPtr = $12BF58;
       target = 'BAI1';
@@ -43,6 +78,8 @@ begin
     begin
         while (Process32Next(snapshot, entry) = TRUE) do
         begin
+            writeln(AnsiString(entry.szExeFile));
+
             if (AnsiString(entry.szExeFile) =  'Themis.exe')  then
             begin
                 themisprocess := OpenProcess(PROCESS_ALL_ACCESS,
