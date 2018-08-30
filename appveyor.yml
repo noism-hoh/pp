@@ -16,4 +16,5 @@ install:
   
 build_script:
   - SET PATH=%PATH%;%COMPILER_PATH%
+  - cd %APPVEYOR_BUILD_FOLDER%
   - fpc pp.pas
