@@ -11,7 +11,9 @@ environment:
 install:
   - appveyor DownloadFile https://github.com/newpascal/freepascal/releases/download/fpc4np-v1.0.64/fpc.zip
   - 7z x fpc.zip -o%APPVEYOR_BUILD_FOLDER% -y
-  - %FPC_PATH%\configure.bat
+  - pushd %FPC_PATH%
+  - configure.bat
+  - popd
   
 build_script:
   - SET PATH=%PATH%;%COMPILER_PATH%
