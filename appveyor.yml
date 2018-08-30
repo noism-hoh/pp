@@ -18,6 +18,3 @@ install:
 build_script:
   - SET PATH=%PATH%;%COMPILER_PATH%
   - fpc pp.pas
- 
- deploy:
-  - off
