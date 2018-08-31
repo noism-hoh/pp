@@ -10,6 +10,6 @@ of the test case path, copy them and then open the output file.
 
 ## Compatibility
 - This does not confirm to work on 64-bit or Windows 10 machine, only Windows 7 32-bit were guranteed.
-- Supported Themis version: 1.9.144
+- Supported Themis version: 1.9.6.2331, 1.7.6.744
 
 Released under MIT license, all work is done by @Noism.
