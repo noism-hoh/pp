@@ -7,5 +7,5 @@ Using Win32 API to do a copy/paste test case to output from a Themis contest on 
 - Firstly, the application queries a list of process and find the one that has the executable name of **Themis.exe**. Then, it tries to read the address of the test cases, copy them then open the output file.
 
 ## Compatibility
-- This does not confirm to work on 64-bit machines or Windows 10, only Windows 7 32-bit are guaranteed.
+- This program isn't confirmed to work correctly on 64-bit machines or Windows 10, only Windows 7 32-bit are guaranteed.
 - Supported Themis version: 1.7.6.744, 1.9.6.2331
